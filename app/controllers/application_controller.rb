@@ -335,6 +335,7 @@ class ApplicationController < ActionController::Base
     make_logged_in_user_available_to_everyone
     track_last_page_request_by_user
     block_suspended_users
+    login_to_project
   end
 
   private ##########
@@ -423,6 +424,13 @@ class ApplicationController < ActionController::Base
   def block_user
     render(plain: "Your account has been temporarily suspended.",
            layout: false)
+  end
+
+  def login_to_project
+    return if @user.nil?
+
+    id = session[:project]
+    @user.current_project = id.blank? : nil : Project.safe_find(id)
   end
 
   public ##########

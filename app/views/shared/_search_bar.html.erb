@@ -98,6 +98,27 @@
                         {class: "glyphicon glyphicon-cog", title: :app_preferences.t,
                          data: {toggle: "tooltip", placement: "bottom"}}) %>
       </li>
+      <% if @user.projects_member.any? %>
+        <li id="project_drop_down" class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" title="<%= :PROJECTS.t %>">
+            <span class="glyphicon glyphicon-bullhorn"></span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" role="menu">
+            <% @user.projects_member.sort_by(&:title).each do |project| %>
+              <% if @user.current_project == project %>
+                <li><%= link_to("<span class='glyphicon glyphicon-stop'></span> #{project.title.t}",
+                                { controller: :project, action: :logout,
+                                  id: project.id }) %></li>
+              <% else %>
+                <li><%= link_to("<span class='glyphicon glyphicon-unchecked'></span> #{project.title.t}",
+                                { controller: :project, action: :login,
+                                  id: project.id }) %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
       <li id="user_drop_down" class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
           <%= h(@user.login) %>

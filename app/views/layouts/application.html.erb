@@ -49,6 +49,12 @@
         </div>
       <% end
 
+      <% if @user && @user.current_project.present? %>
+        <div class="Admin">
+          <%= @user.current_project.title.t %>
+        </div>
+      <% end
+
       banner_text = :app_banner_box.t
       banner_time = TranslationString.banner_time.utc.strftime("%Y%m%d%H%M%S")
       cookie_time = cookies["hideBanner2"].to_s

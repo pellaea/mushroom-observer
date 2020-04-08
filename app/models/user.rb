@@ -417,6 +417,14 @@ class User < AbstractModel
     id == 2873
   end
 
+  def current_project=(project)
+    @current_project = project
+  end
+
+  def current_project
+    @current_project
+  end
+
   ##############################################################################
   #
   #  :section: Names

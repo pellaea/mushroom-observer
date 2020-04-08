@@ -45,6 +45,16 @@ class ProjectController < ApplicationController
     :show_project
   ]
 
+  def login # :norobots:
+    session[:project] = params[:id]
+    redirect_back_or_default
+  end
+
+  def logout # :norobots:
+    session[:project] = nil
+    redirect_back_or_default
+  end
+
   ##############################################################################
   #
   #  :section: Index
